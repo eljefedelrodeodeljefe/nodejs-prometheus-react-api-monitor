@@ -18,8 +18,18 @@
   font-size: 1.5em;
 }
 
-.App-intro {
+.app-intro {
   font-size: large;
+  display: flex;
+  flex-direction: row;
+}
+
+.app-intro > div {
+  width: 100%;
+}
+
+div#request-box {
+  width: 100% !important;
 }
 
 @keyframes App-logo-spin {

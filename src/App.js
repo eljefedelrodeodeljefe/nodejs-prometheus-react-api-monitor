@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Monitor from './components/Monitor';
+import RequestBox from './components/RequestBox';
 
 class App extends Component {
   render() {
@@ -11,9 +12,10 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Node.js with some Prometheus</h1>
         </header>
-        <div className="App-intro">
-          <Monitor />
-        </div>
+        <main className="app-intro">
+          <div><RequestBox /></div>
+          <div><Monitor /></div>
+        </main>
       </div>
     );
   }

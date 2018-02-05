@@ -1,11 +1,26 @@
 import React, { Component } from 'react';
 import ReactEcharts from 'echarts-for-react'
+import { withStyles } from 'material-ui/styles';
+import Button from 'material-ui/Button';
 import { get } from '../../api'
 
 const API_HOSTNAME = 'http://localhost:3000/api/v0'
 const CLIENT_ID = 'some-user'
 
-export default class Monitor extends Component {
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    // alignItems: 'flex-end'
+  },
+  button: {
+    maxWidth: '30%',
+    margin: theme.spacing.unit,
+    alignSelf: 'flex-end'
+  }
+});
+
+class Monitor extends Component {
   constructor(props) {
     super(props)
     this.state = this.getInitialState()
@@ -110,8 +125,18 @@ export default class Monitor extends Component {
   }
 
   render = () => {
+    const { classes } = this.props
+
     return (
-      <div>
+      <div className={classes.container}>
+        <Button
+          variant="raised"
+          color="primary"
+          className={classes.button}
+          onClick={this.fetchNewData}
+        >
+          Refresh Data
+        </Button>
         <ReactEcharts
           ref={(ref) => {
             this.chart = ref
@@ -123,3 +148,5 @@ export default class Monitor extends Component {
     )
   }
 }
+
+export default withStyles(styles)(Monitor);
