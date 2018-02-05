@@ -5,6 +5,7 @@ import Select from 'material-ui/Select';
 import Button from 'material-ui/Button';
 import { MenuItem } from 'material-ui/Menu';
 import AceEditor from 'react-ace';
+import serializeError from 'serialize-error';
 import { get } from '../../api'
 import 'brace/mode/jsx';
 import 'brace/ext/language_tools';
@@ -67,13 +68,16 @@ class RequestBox extends React.Component {
 
   makeRequest = () => {
     const { url } = this.state
+
     get(url)
       .then((body) => {
         this.setState({
           text: JSON.stringify(body, null, 2)
         })
-      }).catch(() => {
-
+      }).catch((err) => {
+        this.setState({
+          text: JSON.stringify(serializeError(err), null, 2)
+        })
       })
   }
 
@@ -97,8 +101,9 @@ class RequestBox extends React.Component {
             placeholder='URL'
             className={classes.input}
             value={this.state.url}
+            onChange={e => this.setState({ url: e.target.value })}
             inputProps={{
-              'aria-label': 'Description',
+              'aria-label': 'URL',
             }}
           />
           <Button
